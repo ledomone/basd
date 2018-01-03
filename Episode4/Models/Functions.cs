@@ -4,17 +4,17 @@ namespace Episode4.Models
 {
     public class Delegates
     {
-        public delegate void Write();
+        public delegate void Write(string message);
 
         public void Test()
         {
             Write writer = WriteMessage;
-            writer();
+            writer("Dominik");
         }
 
-        public static void WriteMessage()
+        public static void WriteMessage(string msg)
         {
-            Console.WriteLine($"Hello!");
+            Console.WriteLine($"Hello {msg}!");
         }
     }
 }
