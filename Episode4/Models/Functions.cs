@@ -80,7 +80,10 @@ namespace Episode4.Models
         public void Test()
         {
             Action writer = () => Console.WriteLine("Writing...");
+            Action<string, int> advancedWriter = (message, number) => 
+                                Console.WriteLine($"{message}, {number}");
             writer();
+            advancedWriter("Sajonara", 42);
         }
     }
 }
