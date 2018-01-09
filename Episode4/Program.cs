@@ -7,8 +7,8 @@ namespace Episode4
     {
         static void Main(string[] args)
         {
-            var delegates = new Delegates();
-            delegates.Test();
+            var lambdaExpressions = new LambdaExpressions();
+            lambdaExpressions.Test();
         }
     }
 }

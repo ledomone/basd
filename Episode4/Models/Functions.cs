@@ -70,4 +70,17 @@ namespace Episode4.Models
             Console.WriteLine($"Hello {msg}!");
         }
     }
+
+    public class LambdaExpressions
+    {
+        public delegate void Write(string message);
+        public delegate int Add(int x, int y);
+        public delegate void Alert(int change);
+
+        public void Test()
+        {
+            Action writer = () => Console.WriteLine("Writing...");
+            writer();
+        }
+    }
 }
