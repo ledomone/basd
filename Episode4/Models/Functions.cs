@@ -84,6 +84,12 @@ namespace Episode4.Models
                                 Console.WriteLine($"{message}, {number}");
             writer();
             advancedWriter("Sajonara", 42);
+
+            Func<int, int, int> adder = (x, y) => x + y;
+            advancedWriter("Hello", 5);
+
+            var sum = adder(1,6);
+            advancedWriter("sum", sum);
         }
     }
 }
