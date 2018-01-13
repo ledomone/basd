@@ -123,18 +123,28 @@ namespace Episode4.Models
 
     }
 
+    public class StatusEventArgs : EventArgs
+    {
+        public string Status { get; }
+        public StatusEventArgs(string status)
+        {
+            Status = status;
+        }
+    }
+
     public class Events
     {
         public delegate void UpdateStatus(string status);
         public event UpdateStatus StatusUpdated;
+        public EventHandler<StatusEventArgs> StatusUpdatedAgain;
 
         public void StartUpdatingStatus()
         {
             while(true)
             {
                 var message = $"status, ticks {DateTime.UtcNow.Ticks}";
-                StatusUpdated?.Invoke(message);
-                Thread.Sleep(491);
+                StatusUpdatedAgain?.Invoke(this, new StatusEventArgs(message));
+                Thread.Sleep(500);
             }
         }
     }
@@ -144,7 +154,10 @@ namespace Episode4.Models
         public void Test()
         {
             var events = new Events();
-            events.StatusUpdated += DisplayStatus;
+            events.StatusUpdatedAgain += (sender, eventArgs) =>
+            {
+                Console.WriteLine(eventArgs.Status);
+            };
             events.StartUpdatingStatus();
         }
 
