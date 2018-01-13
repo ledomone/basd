@@ -73,10 +73,6 @@ namespace Episode4.Models
 
     public class LambdaExpressions
     {
-        public delegate void Write(string message);
-        public delegate int Add(int x, int y);
-        public delegate void Alert(int change);
-
         public void Test()
         {
             Action writer = () => Console.WriteLine("Writing...");
@@ -90,6 +86,40 @@ namespace Episode4.Models
 
             var sum = adder(1,6);
             advancedWriter("sum", sum);
+
+            Action<int, string> logger = (temperature, message) =>
+            {
+                Console.WriteLine($"Temperature is at: {temperature} C. {message}");
+            };
+
+            CheckTemperature(t => logger(t, "Too low!"), t => logger(t, "Optimal"), t => logger(t, "Too high!"));
         }
+
+        public static void CheckTemperature(Action<int> tooLow, Action<int> optimal, Action<int> tooHigh)
+        {
+            var temperature = 10;
+            var random = new Random();
+
+            while(true)
+            {
+                var change = random.Next(-5, 5);
+                temperature += change;
+                Console.WriteLine($"Temperature is at: {temperature} C.");
+                if (temperature <= 0)
+                {
+                    tooLow(temperature);
+                }
+                else if (temperature > 0 && temperature <= 10)
+                {
+                    optimal(temperature);
+                }
+                else
+                {
+                    tooHigh(temperature);
+                }
+                Thread.Sleep(500);
+            }
+        }
+
     }
 }
