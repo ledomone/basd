@@ -8,43 +8,28 @@ namespace Episode5.Models
     {
         public void Test()
         {
-            IEnumerable<int> numbers = GetNumbers();
-            foreach(var number in numbers)
-            {
-                Console.WriteLine($"{number}");
-            }
+            var items = GetItems();
+            var numbers = Enumerable.Range(1,10);
+            var max = numbers.Max();
+            var sum = numbers.Sum();
+            var tools = items.Where(x => x.Category == "Tools");
+            var axe = tools.FirstOrDefault(x => x.Name == "Helmet");
+            var totalPriceOfTools = tools.Sum(x => x.Price);
+            var food = items.Where(x => x.Category == "Food");
+            var foodAndTools = tools.Union(food);
 
+            var query = items.Where(x => x.CreatedAt >= DateTime.UtcNow.AddDays(-10))
+                             .Where(x => x.Price > 300)
+                             .Skip(1)
+                             .Take(2)
+                             .OrderBy(x => x.Price)
+                             .Select(x => new {x.Name, x.Price});
 
-            // var items = GetItems();
-            // var numbers = Enumerable.Range(1,10);
-            // var max = numbers.Max();
-            // var sum  = numbers.Sum();
-            // var tools = items.Where(x => x.Category == "Tools");
-            // var axe = tools.First(x => x.Name == "Axe"); 
-            // var totalPriceOfTools = tools.Sum(x => x.Price);
-            // var food = items.Where(x => x.Category == "Food");
-            // var foodAndTools = tools.Intersect(food);
-
-            // var query = items.Where(x => x.CreatedAt >= DateTime.UtcNow.AddDays(-10))
-            //                  .Where(x => x.Price > 300)
-            //                  .Skip(1)
-            //                  .Take(2)
-            //                  .OrderBy(x => x.Price)
-            //                  .Select(x => new {x.Name, x.Price});
-
-            // var groupedItems = items.GroupBy(x => x.Category);
-            // var dictionary = query.ToDictionary(x => x.Name, x => x.Price);
+            var groupedItems = items.GroupBy(x => x.Category);
+            var dectionary = query.ToDictionary(x => x.Name, x => x.Price);
         }
 
-        public IEnumerable<int> GetNumbers()
-        {
-            yield return 1;
-            yield return 2;
-            yield return 4;
-            yield return 6;
-            yield return 7;
-        }
-
+        
         public IEnumerable<Item> GetItems()
         {
             yield return new Item("Axe", "Tools", 250, DateTime.UtcNow.AddDays(-15));
