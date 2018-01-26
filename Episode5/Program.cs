@@ -1,14 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using Episode5.Models;
 
 namespace Episode5
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            var eventSandbox = new EventSandbox();
-            eventSandbox.Test();
+            var enumerations = new Enumerations();
+            enumerations.Test();
         }
     }
 }

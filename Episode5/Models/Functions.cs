@@ -13,10 +13,10 @@ namespace Episode5.Models
         {
             Write writer = WriteMessage;
             Add adder = AddTwoNumbers;
-            writer("Dominik");
-            var sum = adder(1, 7);
+            writer("Piotr");
+            var sum = adder(1,2);
             Console.WriteLine(sum);
-            CheckTemperature(TooLowAlert, OptimalAlert, TooHighAlert);
+            CheckTemperature(TooLowAlert,OptimalAlert,TooHighAlert);
         }
 
         public static void TooLowAlert(int change)
@@ -41,14 +41,14 @@ namespace Episode5.Models
 
             while(true)
             {
-                var change = random.Next(-5, 5);
+                var change = random.Next(-5,5);
                 temperature += change;
                 Console.WriteLine($"Temperature is at: {temperature} C.");
-                if (temperature <= 0)
+                if(temperature <= 0)
                 {
                     tooLow(change);
                 }
-                else if (temperature > 0 && temperature <= 10)
+                else if(temperature > 0 && temperature <= 10)
                 {
                     optimal(change);
                 }
@@ -60,14 +60,14 @@ namespace Episode5.Models
             }
         }
 
-        public static int AddTwoNumbers(int a, int b)
+        public static int AddTwoNumbers(int x, int y)
         {
-            return a + b;
+            return x + y;
         }
 
-        public static void WriteMessage(string msg)
+        public static void WriteMessage(string message)
         {
-            Console.WriteLine($"Hello {msg}!");
+            Console.WriteLine($"Hello {message}!");
         }
     }
 
@@ -79,20 +79,18 @@ namespace Episode5.Models
             Action<string, int> advancedWriter = (message, number) => 
                                 Console.WriteLine($"{message}, {number}");
             writer();
-            advancedWriter("Sajonara", 42);
-
-            Func<int, int, int> adder = (x, y) => x + y;
+            Func<int,int,int> adder = (x,y) => { return x + y; };
             advancedWriter("Hello", 5);
+            var sum = adder(1,2);
+            advancedWriter("Sum", sum);
 
-            var sum = adder(1,6);
-            advancedWriter("sum", sum);
-
-            Action<int, string> logger = (temperature, message) =>
+            Action<int, string> logger = (temperature, message) => 
             {
                 Console.WriteLine($"Temperature is at: {temperature} C. {message}");
             };
 
-            CheckTemperature(t => logger(t, "Too low!"), t => logger(t, "Optimal"), t => logger(t, "Too high!"));
+            CheckTemperature(t => logger(t, "Too low!"), t => logger(t, "Optimal."),
+                t => logger(t, "Too high!"));
         }
 
         public static void CheckTemperature(Action<int> tooLow, Action<int> optimal, Action<int> tooHigh)
@@ -102,14 +100,14 @@ namespace Episode5.Models
 
             while(true)
             {
-                var change = random.Next(-5, 5);
+                var change = random.Next(-5,5);
                 temperature += change;
                 Console.WriteLine($"Temperature is at: {temperature} C.");
-                if (temperature <= 0)
+                if(temperature <= 0)
                 {
                     tooLow(temperature);
                 }
-                else if (temperature > 0 && temperature <= 10)
+                else if(temperature > 0 && temperature <= 10)
                 {
                     optimal(temperature);
                 }
@@ -120,7 +118,6 @@ namespace Episode5.Models
                 Thread.Sleep(500);
             }
         }
-
     }
 
     public class StatusEventArgs : EventArgs
@@ -143,6 +140,7 @@ namespace Episode5.Models
             while(true)
             {
                 var message = $"status, ticks {DateTime.UtcNow.Ticks}";
+                StatusUpdated?.Invoke(message);
                 StatusUpdatedAgain?.Invoke(this, new StatusEventArgs(message));
                 Thread.Sleep(500);
             }
@@ -154,18 +152,22 @@ namespace Episode5.Models
         public void Test()
         {
             var events = new Events();
-            events.StatusUpdatedAgain += (sender, eventArgs) =>
+            events.StatusUpdated += DisplayStatus;
+            events.StatusUpdatedAgain += (sender, eventArgs) => 
             {
                 Console.WriteLine(eventArgs.Status);
             };
-            events.StatusUpdatedAgain += (sender, eventArgs) => DisplayStatus(sender, eventArgs.Status);
-            events.StartUpdatingStatus();
+            events.StartUpdatingStatus(); 
         }
 
-        public void DisplayStatus(object sender, string message)
+        public void DisplayStatus(string message)
         {
-            Console.WriteLine($"2: {message}");
+            Console.WriteLine(message);
         }
-    }
 
+        public void DisplayStatus2(string message)
+        {
+            Console.WriteLine($"2 {message}");
+        }        
+    }
 }
