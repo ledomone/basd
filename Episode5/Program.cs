@@ -7,7 +7,7 @@ namespace Episode5
     {
         static void Main(string[] args)
         {
-            var test = new Delegates();
+            var test = new Enumerations();
             test.Test();
         }
     }
