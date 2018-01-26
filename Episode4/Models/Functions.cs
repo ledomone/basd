@@ -158,12 +158,13 @@ namespace Episode4.Models
             {
                 Console.WriteLine(eventArgs.Status);
             };
+            events.StatusUpdatedAgain += (sender, eventArgs) => DisplayStatus(sender, eventArgs.Status);
             events.StartUpdatingStatus();
         }
 
-        public void DisplayStatus(string message)
+        public void DisplayStatus(object sender, string message)
         {
-            Console.WriteLine(message);
+            Console.WriteLine($"2: {message}");
         }
     }
 
