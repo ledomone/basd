@@ -106,7 +106,9 @@ namespace Episode6.Models
         public async Task<string> GetContentAsync()
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync("https://jsonplaceholder.typicode.com/photos");
+            var task = httpClient.GetAsync("https://jsonplaceholder.typicode.com/photos");
+            Console.WriteLine("No wait...");
+            var response = await task;
             var content = await response.Content.ReadAsStringAsync();
 
             return content;
