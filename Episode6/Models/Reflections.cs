@@ -1,7 +1,9 @@
 using System;
 using System.Dynamic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Episode6.Models
 {
@@ -91,5 +93,23 @@ namespace Episode6.Models
          {
              Length = length;
          }
+    }
+
+    public class Asynchronous
+    {
+        public async Task Test()
+        {
+            var content = await GetContentAsync();
+            Console.WriteLine(content);
+        }
+
+        public async Task<string> GetContentAsync()
+        {
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync("https://jsonplaceholder.typicode.com/photos");
+            var content = await response.Content.ReadAsStringAsync();
+
+            return content;
+        }
     }
 }
