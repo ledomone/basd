@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Episode6.Models
@@ -16,6 +17,13 @@ namespace Episode6.Models
             {
                 Console.WriteLine($"{method.Name}");
             }
+
+            user.Activate();
+            Console.WriteLine($"Is active: {user.IsActive}.");
+
+            var deactivateMethod = methods.First(x => x.Name == "Deactivate");
+            deactivateMethod.Invoke(user, null);
+            Console.WriteLine($"Is active: {user.IsActive}.");
         }
     }
 }
