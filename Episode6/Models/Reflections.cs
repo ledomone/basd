@@ -24,6 +24,12 @@ namespace Episode6.Models
             var deactivateMethod = methods.First(x => x.Name == "Deactivate");
             deactivateMethod.Invoke(user, null);
             Console.WriteLine($"Is active: {user.IsActive}.");
+
+            Console.WriteLine($"Email: {user.Email}");
+            var setEmailMethod = type.GetMethod("SetEmail");
+            setEmailMethod.Invoke(user, new[]{"newMail@op.pl"});
+            Console.WriteLine($"Email: {user.Email}");
+            
         }
     }
 }
