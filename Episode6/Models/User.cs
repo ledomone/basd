@@ -7,6 +7,7 @@ namespace Episode6.Models
     {
         private readonly ISet<Order> _orders = new HashSet<Order>();
         public string Email { get; private set; }
+        [UserPassword]
         public string Password { get; private set; }
         
         //Let's assume that we don't care about the value here.

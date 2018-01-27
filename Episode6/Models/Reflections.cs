@@ -67,4 +67,29 @@ namespace Episode6.Models
             }
         }
     }
+
+    public class Attributes 
+    {
+        public void Test()
+        {
+            var user = new User("a@b.pl", "secret");
+            var passwordAttribute = (UserPasswordAttribute)user.GetType()
+                                        .GetTypeInfo()
+                                        .GetProperty("Password")
+                                        .GetCustomAttribute(typeof(UserPasswordAttribute));
+            var isPasswordValid = user.Password.Length == passwordAttribute.Length;
+            Console.WriteLine($"Is valid: {isPasswordValid}");                                        
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class UserPasswordAttribute : Attribute
+    {
+         public int Length { get; }
+
+         public UserPasswordAttribute(int length = 4)
+         {
+             Length = length;
+         }
+    }
 }
