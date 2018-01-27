@@ -32,6 +32,15 @@ namespace Episode6.Models
 
             var email = type.GetProperty("Email").GetValue(user);
             Console.WriteLine($"Email: {email}");
+
+            var databaseTypes = Assembly.GetEntryAssembly()
+                                        .GetTypes()
+                                        .Where(x => x.Name.Contains("Database"));
+            foreach(var databaseType in databaseTypes)
+            {
+                Console.WriteLine($"{databaseType}");
+            }
+                                    
         }
     }
 }
