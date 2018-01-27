@@ -40,7 +40,9 @@ namespace Episode6.Models
             {
                 Console.WriteLine($"{databaseType}");
             }
-                                    
+
+            var user2 = (User)Activator.CreateInstance(typeof(User), new[]{"userXX@gmail.com", "secretPassword"});
+            Console.WriteLine($"{user2.Email}");
         }
     }
 }
