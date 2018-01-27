@@ -1,4 +1,5 @@
 using System;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
@@ -54,6 +55,16 @@ namespace Episode6.Models
             Console.WriteLine($"{user.Email}");
             user.SetEmail("user2@email.com");
             Console.WriteLine($"{user.Email}");
+
+            dynamic anything = new ExpandoObject();
+            anything.id = 1;
+            anything.name = "me";
+            Console.WriteLine($"{anything.id} {anything.name}");
+
+            foreach(var property in anything)
+            {
+                Console.WriteLine($"{property.Key} {property.Value}");
+            }
         }
     }
 }
