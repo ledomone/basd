@@ -7,7 +7,7 @@ namespace Episode6
     {
         static void Main(string[] args)
         {
-            var test = new Enumerations();
+            var test = new Reflections();
             test.Test();
         }
     }
