@@ -7,8 +7,8 @@ namespace Episode6
     {
         static void Main(string[] args)
         {
-            var test = new Reflections();
-            test.Test();
+            var dymamics = new Dynamics();
+            dymamics.Test();
         }
     }
 }

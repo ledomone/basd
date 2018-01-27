@@ -45,4 +45,15 @@ namespace Episode6.Models
             Console.WriteLine($"{user2.Email}");
         }
     }
+
+    public class Dynamics
+    {
+        public void Test()
+        {
+            dynamic user = new User("user1@email.com","secret");
+            Console.WriteLine($"{user.Email}");
+            user.SetEmail("user2@email.com");
+            Console.WriteLine($"{user.Email}");
+        }
+    }
 }
