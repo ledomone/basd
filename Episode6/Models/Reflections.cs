@@ -15,7 +15,7 @@ namespace Episode6.Models
             var methods = type.GetMethods();
             foreach(var method in methods)
             {
-                Console.WriteLine($"{method.Name}");
+                // Console.WriteLine($"{method.Name}");
             }
 
             user.Activate();
@@ -29,7 +29,9 @@ namespace Episode6.Models
             var setEmailMethod = type.GetMethod("SetEmail");
             setEmailMethod.Invoke(user, new[]{"newMail@op.pl"});
             Console.WriteLine($"Email: {user.Email}");
-            
+
+            var email = type.GetProperty("Email").GetValue(user);
+            Console.WriteLine($"Email: {email}");
         }
     }
 }
