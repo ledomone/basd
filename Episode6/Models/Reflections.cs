@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Episode6.Models
@@ -112,6 +113,19 @@ namespace Episode6.Models
             var content = await response.Content.ReadAsStringAsync();
 
             return content;
+        }
+    }
+
+    public class Parallelism
+    {
+        public void Test()
+        {
+            var numbers = Enumerable.Range(1, 100);
+            Parallel.ForEach(numbers, number =>
+            {
+                Console.WriteLine($"Number {number} on thread {Thread.CurrentThread.ManagedThreadId}");
+                Thread.Sleep(100);
+            });
         }
     }
 }

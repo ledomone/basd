@@ -8,8 +8,8 @@ namespace Episode6
     {
         static void Main(string[] args)
         {
-            var asynchronous = new Asynchronous();
-            asynchronous.Test().Wait();
+            var parallelism = new Parallelism();
+            parallelism.Test();
         }
     }
 }
