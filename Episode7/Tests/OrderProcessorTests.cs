@@ -20,9 +20,9 @@ namespace Episode7.Tests
             Order = new Order(1, 10);
             DatabaseMock = new Mock<IDatabase>();
             EmailSenderMock = new Mock<IEmailSender>();
-            DatabaseMock.Setup(x => x.GetUser(It.IsAny<string>()))
+            DatabaseMock.Setup(x => x.GetUser(User.Email))
                         .Returns(User);
-            DatabaseMock.Setup(x => x.GetOrder(It.IsAny<int>()))
+            DatabaseMock.Setup(x => x.GetOrder(Order.Id))
                         .Returns(Order);
             OrderProcessor = new OrderProcessor(DatabaseMock.Object, EmailSenderMock.Object);
         }
@@ -38,8 +38,8 @@ namespace Episode7.Tests
             OrderProcessor.ProcessOrder(User.Email, Order.Id);
 
             // Assert
-            DatabaseMock.Verify(x => x.GetUser(It.IsAny<string>()), Times.Once);
-            DatabaseMock.Verify(x => x.GetOrder(It.IsAny<int>()), Times.Once);
+            DatabaseMock.Verify(x => x.GetUser(User.Email), Times.Once);
+            DatabaseMock.Verify(x => x.GetOrder(Order.Id), Times.Once);
             Assert.IsTrue(Order.IsPurchased);
         }
     }
