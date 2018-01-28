@@ -1,3 +1,4 @@
+using Episode7.Models;
 using NUnit.Framework;
 
 namespace Episode7.Tests
