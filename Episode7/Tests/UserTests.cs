@@ -10,13 +10,14 @@ namespace Episode7.Tests
         public void  changing_email_should_succeed()
         {
             // Arrange
+            var expectedEmail = "user2@email.com";
             var user = new User("user1@email.com", "secret");
 
             // Act
-            user.SetEmail("user2@email.com");
+            user.SetEmail(expectedEmail);
 
             // Assert
-            Assert.AreEqual("user2@email.com", user.Email);
+            Assert.AreEqual(expectedEmail, user.Email);
         }
     }
 }
