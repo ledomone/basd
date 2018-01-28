@@ -1,4 +1,5 @@
 using Episode7.Models;
+using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 
@@ -40,7 +41,7 @@ namespace Episode7.Tests
             // Assert
             DatabaseMock.Verify(x => x.GetUser(User.Email), Times.Once);
             DatabaseMock.Verify(x => x.GetOrder(Order.Id), Times.Once);
-            Assert.IsTrue(Order.IsPurchased);
+            Order.IsPurchased.Should().BeTrue();
         }
     }
 }
