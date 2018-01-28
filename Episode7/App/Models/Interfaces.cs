@@ -26,17 +26,16 @@ namespace Episode7.Models
 
     public class Database : IDatabase
     {
-        public bool IsConnected
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public bool IsConnected { get; protected set; }
 
         public void Connect()
         {
-            throw new NotImplementedException();
+            if (IsConnected)
+            {
+                return;
+            }
+
+            IsConnected = true;
         }
 
         public Order GetOrder(int id)
